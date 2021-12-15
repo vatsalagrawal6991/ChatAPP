@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WhatsLikeApp</title>
+    </head>
+    <script>
+        const useram = "<%=useranm %>"
+        console.log(useram)
+    </script>
+    <script src="socket.io/socket.io.js">
+    </script>
+    <script >    ;
+        
+        var roomans =00010000
+        var iona = io();
+        iona.on('inital',function(a){
+            iona.emit('inital1',roomans)
+        
+        })
+
+        iona.on('inital2',function(a){
+            document.getElementById('contenting').innerHTML=""
+            for(i in a){
+                if (a[i][2]==roomans){
+                    if (a[i][3]=="texta"){
+                        if (a[i][0]==useram){
+                    const ab=document.createElement('div');
+                    ab.innerText="You : "+a[i][1];
+                    document.getElementById('contenting').append(ab)
+            }
+                else{
+                    const ab=document.createElement('div');
+                    ab.innerText=a[i][0]+ " : " + a[i][1];
+                    document.getElementById('contenting').append(ab)
+                }
+                    }
+                    if (a[i][3]=="Imageai"){
+                        if (a[i][0]==useram){
+                            const ab=document.createElement('div');
+            ab.innerText="You : "
+            document.getElementById('contenting').append(ab)
+                            const ae=document.createElement('img');
+                ae.src=a[i][1]
+                
+                document.getElementById('contenting').appendChild(ae)
+            }
+                else{
+                    const ab=document.createElement('div');
+                ab.innerText=a[i][0]+ " : " ;
+                document.getElementById('contenting').append(ab)
+                    const ae=document.createElement('img');
+                ae.src=a[i][1]
+                
+                document.getElementById('contenting').appendChild(ae)
+                }
+                    }
+                    if (a[i][3]=="Videoai"){
+                        if (a[i][0]==useram){
+                            const ab=document.createElement('div');
+            ab.innerText="You : "
+            document.getElementById('contenting').append(ab)
+                            const ae=document.createElement('video');
+                ae.src=a[i][1]
+                ae.setAttribute("controls","controls")
+                document.getElementById('contenting').appendChild(ae)
+            }
+                else{
+                    const ab=document.createElement('div');
+                ab.innerText=a[i][0]+ " : " ;
+                document.getElementById('contenting').append(ab)
+                    const ae=document.createElement('video');
+                ae.src=a[i][1]
+                ae.setAttribute("controls","controls")
+                document.getElementById('contenting').appendChild(ae)
+                }
+                    }
+            }}
+            
+        })
+
+        iona.on('inital3',function(a){
+            var iat
+            document.getElementById('usering').innerHTML=""
+            for(i in a){
+                if (a[i].username==useram){
+                    iat = i; 
+                    break;
+                }
+            }
+            for(i in a){
+                if (a[i].username!==useram){
+                    var ab=document.createElement('a');
+                    var dc=document.createTextNode(a[i].username);
+                    ab.appendChild(dc);
+                    if(i<iat){
+                        ab.href="/0_"+i+"_"+iat+"/"+useram
+                    }
+                    else{
+                        ab.href="/0_"+iat+"_"+i+"/"+useram
+                    }
+                    
+                    document.getElementById('usering').append(ab)
+                    document.getElementById('usering').append("         ")
+            }                 
+            }
+            
+        })
+        iona.on('inital4',function(a){
+            document.getElementById('rooming').innerHTML=""
+            for(i in a){
+                
+                var ab=document.createElement('a');
+                var dc=document.createTextNode(a[i].gr);
+                ab.appendChild(dc);
+                ab.href="/1_"+i+"/"+useram
+                
+                document.getElementById('rooming').append(ab)
+                document.getElementById('rooming').append("         ")
+            }
+            
+        })
+        
+        function eventsubmit(e){
+            e.preventDefault();
+            var cht=document.getElementById('texting').value;          
+            if(cht){
+                iona.emit('toserver',{msga:cht,useran:useram,roomans:roomans});
+                document.getElementById('texting').value='';
+            }
+        }
+        iona.on('toclient',function(msg){
+            console.log(msg);
+            if (msg.ua==useram){
+                const ab=document.createElement('div');
+            ab.innerText="You : "+msg.msgap;
+            document.getElementById('contenting').append(ab)
+            }
+            else{
+                const ab=document.createElement('div');
+                ab.innerText=msg.ua+ " : " + msg.msgap;
+                document.getElementById('contenting').append(ab)
+            }
+            
+        })
+        iona.on('toimgsend',function(msg){
+            console.log(msg);
+            if(msg.typersa=="Imageai"){
+                if (msg.ua==useram){
+                    const ab=document.createElement('div');
+            ab.innerText="You : "
+            document.getElementById('contenting').append(ab)
+                const ae=document.createElement('img');
+                ae.src=msg.imgdata
+                
+                document.getElementById('contenting').appendChild(ae)
+            }
+            else{
+                const ab=document.createElement('div');
+                ab.innerText=msg.ua+ " : " ;
+                document.getElementById('contenting').append(ab)    
+                const ae=document.createElement('img');
+                ae.src=msg.imgdata
+                
+                document.getElementById('contenting').appendChild(ae)
+            }
+            }
+            if(msg.typersa=="Videoai"){
+                if (msg.ua==useram){
+                    const ab=document.createElement('div');
+            ab.innerText="You : "
+            document.getElementById('contenting').append(ab)
+                var ae=document.createElement('video');
+                ae.src=msg.imgdata
+                ae.setAttribute("controls","controls")
+                document.getElementById('contenting').appendChild(ae)
+            }
+            else{
+                const ab=document.createElement('div');
+                ab.innerText=msg.ua+ " : " ;
+                document.getElementById('contenting').append(ab)
+                
+                const ae=document.createElement('video');
+                ae.src=msg.imgdata
+                ae.setAttribute("controls","controls")
+                document.getElementById('contenting').appendChild(ae)
+            }
+            }
+            
+            
+        })
+        function eventsubmit2(e){
+            e.preventDefault();
+            var chter=document.getElementById('gnnaa').value;     
+            var derf= document.getElementById('passwda').value; 
+            if(chter && derf){
+                iona.emit('togrpr',{gnna:chter,passwd:derf});
+            }
+            document.getElementById('gnnaa').value="";     
+                document.getElementById('passwda').value="";
+        }
+        function eventsubmit3(e){
+            e.preventDefault();
+            var filleri=document.getElementById('filinggg').files[0];      
+            if(filleri){
+                console.log(filleri)
+                var frcs = new FileReader()
+                frcs.readAsDataURL(filleri)
+                frcs.onload=(eve)=>{
+                    console.log(eve)
+                    iona.emit('fromimgsend',{msga:filleri.name,typersa:"Imageai",imgan:eve.target.result,useran:useram,roomans:roomans});  
+                    
+                }
+            }
+            document.getElementById('filinggg').value="";     
+        }
+        function eventsubmit4(e){
+            e.preventDefault();
+            var filleri=document.getElementById('filinggg').files[0];      
+            if(filleri){
+                console.log(filleri)
+                var frcs = new FileReader()
+                frcs.readAsDataURL(filleri)
+                frcs.onload=(eve)=>{
+                    console.log(eve)
+                    iona.emit('fromimgsend',{msga:filleri.name,typersa:"Videoai",imgan:eve.target.result,useran:useram,roomans:roomans});  
+                    
+                }
+            }
+            document.getElementById('filinggg').value="";     
+        }
+    </script>
+    <body>
+        <div id="usering"> </div>
+        <div id="rooming"> </div>
+        <form id="cnuform" onsubmit="eventsubmit2(event)"">
+            <br>
+            Group Name :
+            <input type="text" name="gnnaa" id="gnnaa" />
+            <br>
+            Password   :
+            <input type="password" name="passwda" id="passwda"/>
+            <br>
+            <input type="submit" id="logassf" value="New Room"  />
+            <br>
+        </form>
+        <form id="forumn" onsubmit="eventsubmit(event)">
+            <br>
+            BroadCast:
+            <br>
+            <input type="text" id="texting" size="90%"/>
+            <input type="submit" id="submita" value="Send"  />
+        </form>
+        <form id="fileforumn" >
+            <input type="file" id="filinggg" />
+            <input type="Button" id="sendam" value="Image/Gif" onclick="eventsubmit3(event)"  />
+            <input type="Button" id="sendam" value="Video/Reels" onclick="eventsubmit4(event)"  />
+            
+        </form>
+        <div id="contenting"> <br></div>
+    </body>
+</html>
