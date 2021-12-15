@@ -1,4 +1,6 @@
 **************************HOW TO MAKE EXECUTABLE AND RUN PROGRAMME******************************
+ DO NPM INIT and install all required modules like daemon express socket etc
+ Rest Copy All filesas same
  1) Unzip File at location x
 2) Open Terminal and change directory to that location x
 3) Now enter the command.
