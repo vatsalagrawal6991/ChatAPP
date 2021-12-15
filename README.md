@@ -2,8 +2,27 @@ Made by Vatsal AGRAWAL
 
 **************************HOW TO MAKE EXECUTABLE AND RUN PROGRAMME******************************
  
- DO NPM INIT and install all required modules like daemon, express, socket etc
- Rest Copy All files as same
+ DO NPM INIT and install all required modules like daemon, express, socket, mongodb, ejs,  etc
+ 
+ "dependencies": {
+    "cassandra-driver": "^4.6.3",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "formidable": "^2.0.1",
+    "mongoose": "^6.0.13",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.1.0",
+    "prompt": "^1.2.0",
+    "socket.io": "^4.4.0"
+  },
+  
+  
+ Rest Copy All files as same 
+ Be careful while copying json file
+ 
+ 
  1) Unzip File at location x
 2) Open Terminal and change directory to that location x
 3) Now enter the command.
